@@ -15,22 +15,22 @@
 // If you want to learn more about how our out-of-the-box authentication works, please
 // read https://keystonejs.com/docs/apis/auth#authentication-api
 
-import { randomBytes } from "node:crypto";
-import { createAuth } from "@keystone-6/auth";
+import { randomBytes } from 'node:crypto';
+import { createAuth } from '@keystone-6/auth';
 
 // see https://keystonejs.com/docs/apis/session for the session docs
-import { statelessSessions } from "@keystone-6/core/session";
+import { statelessSessions } from '@keystone-6/core/session';
 
 // withAuth is a function we can use to wrap our base configuration
 const { withAuth } = createAuth({
-	listKey: "User",
-	identityField: "email",
+	listKey: 'User',
+	identityField: 'email',
 
 	// this is a GraphQL query fragment for fetching what data will be attached to a context.session
 	//   this can be helpful for when you are writing your access control functions
 	//   you can find out more at https://keystonejs.com/docs/guides/auth-and-access-control
-	sessionData: "name email createdAt isAdmin",
-	secretField: "password",
+	sessionData: 'name email createdAt isAdmin',
+	secretField: 'password',
 
 	// WARNING: remove initFirstItem functionality in production
 	//   see https://keystonejs.com/docs/config/auth#init-first-item for more
