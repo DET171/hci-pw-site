@@ -13,11 +13,14 @@ The repository is structured as follows:
 ### Setup
 1. Clone the repository
 2. Install dependencies
+
 		```bash
-		yarn
+		yarn install
 		```
+
 3. Configure the respective apps in the `apps/cms` and `apps/frontend` directories (refer to the READMEs in the respective directories) before starting the dev servers.
 4. Start dev servers:
+
 		```bash
 		yarn dev
 		```
