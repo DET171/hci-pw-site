@@ -23,8 +23,8 @@ import {
 import { document } from '@keystone-6/fields-document';
 // if you want to make your own fields, see https://keystonejs.com/docs/guides/custom-fields
 
-import bcrypt from 'bcrypt';
 import { createId } from '@paralleldrive/cuid2';
+import bcrypt from 'bcrypt';
 
 import type { BaseItem } from '@keystone-6/core/types';
 import type { SessionType } from './auth';
