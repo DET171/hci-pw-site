@@ -25,20 +25,24 @@ import { document } from '@keystone-6/fields-document';
 
 import bcrypt from 'bcrypt';
 
+import type { BaseItem } from '@keystone-6/core/types';
+import type { SessionType } from './auth';
 // when using Typescript, you can refine your types to a stricter subset by importing
 // the generated types from '.keystone/types'
 import type { Lists } from '.keystone/types';
-import type { BaseItem } from '@keystone-6/core/types';
-import type { SessionType } from './auth';
 
 const isUser = ({ session }: { session?: SessionType }) => !!session?.data;
 
-const isPerson = ({ session, item }: { session?: SessionType, item: BaseItem }) =>
+const isPerson = ({
+	session,
+	item,
+}: { session?: SessionType; item: BaseItem }) =>
 	!!session?.data && session.data.id === item.id;
 
-const isAdmin = ({ session }: { session?: SessionType }) => !!session?.data?.isAdmin;
+const isAdmin = ({ session }: { session?: SessionType }) =>
+	!!session?.data?.isAdmin;
 
-const isPersonOrAdmin = (args: { session?: SessionType, item: BaseItem }) =>
+const isPersonOrAdmin = (args: { session?: SessionType; item: BaseItem }) =>
 	isPerson(args) || isAdmin(args);
 
 export const lists = {

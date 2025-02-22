@@ -37,7 +37,10 @@ export default withAuth(
 						data: {
 							name: process.env.DEFAULT_ADMIN_USER || 'admin',
 							email: process.env.DEFAULT_ADMIN_EMAIL || 'admin@hci.edu.sg',
-							password: await bcrypt.hash(process.env.DEFAULT_ADMIN_PW || 'admin', 10),
+							password: await bcrypt.hash(
+								process.env.DEFAULT_ADMIN_PW || 'admin',
+								10,
+							),
 							isAdmin: true,
 						},
 					});
