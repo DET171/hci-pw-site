@@ -1,24 +1,21 @@
 {
-  "name": "hci-pw-site",
-  "private": true,
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
-  },
-  "devDependencies": {
-    "prettier": "^3.5.0",
-    "turbo": "^2.4.2",
-    "typescript": "5.7.3"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "packageManager": "bun@1.2.2",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+	"name": "pw-app",
+	"private": true,
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"format-lint": "biome check .",
+		"format-lint:fix": "biome check . --write"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"dotenv": "^16.4.7",
+		"turbo": "^2.4.2",
+		"typescript": "5.7.3"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"workspaces": ["apps/*", "packages/*"],
+	"packageManager": "yarn@4.6.0"
 }
