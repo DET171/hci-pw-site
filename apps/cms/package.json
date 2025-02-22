@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "keystone dev",
 		"start": "keystone start",
-		"build": "keystone build"
+		"build": "keystone build",
+		"check-types": "tsc --skipLibCheck --noEmit"
 	},
 	"dependencies": {
 		"@keystone-6/auth": "^8.0.0",
@@ -17,6 +18,6 @@
 		"typescript": "^5.5.0"
 	},
 	"devDependencies": {
-		"@types/bcrypt": "^5"
+		"@types/bcrypt": "^5.0.2"
 	}
 }
