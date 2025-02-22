@@ -25,5 +25,5 @@ The repository is structured as follows:
 6. Lint and format code:
 
 		yarn turbo format-lint
-		# and
+		# and to apply auto fixes
 		yarn turbo format-lint:fix

@@ -57,3 +57,13 @@ const session = statelessSessions({
 });
 
 export { withAuth, session };
+
+export type SessionType = {
+	data: {
+		id: string;
+		name: string;
+		email: string;
+		createdAt: string;
+		isAdmin: boolean;
+	};
+};

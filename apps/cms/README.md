@@ -10,4 +10,11 @@ DB_PROVIDER=sqlite
 DEFAULT_ADMIN_PW=a-password
 DEFAULT_ADMIN_USER=some-username
 DEFAULT_ADMIN_EMAIL=a-valid-email
+SESSION_SECRET=your-session-secret
+```
+
+To generate a session secret (for encrypting sessions), you can use the following command:
+
+```sh
+openssl rand -hex 32
 ```
