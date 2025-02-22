@@ -19,6 +19,11 @@ The repository is structured as follows:
 3. Configure the respective apps in the `apps/cms` and `apps/frontend` directories (refer to the READMEs in the respective directories) before starting the dev servers.
 4. Start dev servers:
 
-		```bash
 		yarn dev
-		```
+
+5. Access the CMS at `http://localhost:5001` or refer to the links shown in the terminal after starting the dev servers.
+6. Lint and format code:
+
+		yarn turbo format-lint
+		# and
+		yarn turbo format-lint:fix
