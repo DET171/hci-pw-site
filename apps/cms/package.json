@@ -11,6 +11,7 @@
 		"@keystone-6/auth": "^8.0.0",
 		"@keystone-6/core": "^6.0.0",
 		"@keystone-6/fields-document": "^9.0.0",
+		"@paralleldrive/cuid2": "^2.2.2",
 		"bcrypt": "^5.1.1",
 		"slate-dom": "^0.112.2",
 		"typescript": "^5.5.0"
