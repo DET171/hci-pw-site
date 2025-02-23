@@ -5,8 +5,10 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	useLoaderData
 } from '@remix-run/react';
 import Navbar from './components/Navbar';
+import { client } from './lib/urql';
 
 import './styles/tailwind.css';
 import './styles/global.css';
@@ -24,7 +26,23 @@ export const links: LinksFunction = () => [
 	},
 ];
 
+export const loader = async () => {
+	const result = await client.query(`
+		query Years {
+			years {
+				year
+			}
+		}
+	`, {});
+
+	return {
+		years: result.data.years,
+	};
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
+	const { years } = useLoaderData<typeof loader>();
+
 	return (
 		<html lang='en'>
 			<head>
@@ -34,7 +52,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<Links />
 			</head>
 			<body>
-				<Navbar />
+				<Navbar years={years} />
 				{children}
 				<ScrollRestoration />
 				<Scripts />

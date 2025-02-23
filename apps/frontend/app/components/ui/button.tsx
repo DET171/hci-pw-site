@@ -1,5 +1,6 @@
 import { Slot } from '@radix-ui/react-slot';
 import { type VariantProps, cva } from 'class-variance-authority';
+import { forwardRef } from 'react';
 import type * as React from 'react';
 
 import { cn } from '~/lib/utils';
@@ -36,7 +37,7 @@ const buttonVariants = cva(
 	},
 );
 
-function Button({
+const Button = forwardRef(({
 	className,
 	variant,
 	size,
@@ -45,7 +46,7 @@ function Button({
 }: React.ComponentProps<'button'> &
 	VariantProps<typeof buttonVariants> & {
 		asChild?: boolean;
-	}) {
+	}, forwardedRed) => {
 	const Comp = asChild ? Slot : 'button';
 
 	return (
@@ -53,8 +54,10 @@ function Button({
 			data-slot='button'
 			className={cn(buttonVariants({ variant, size, className }))}
 			{...props}
+			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+			ref={forwardedRed as unknown as any}
 		/>
 	);
-}
+})
 
 export { Button, buttonVariants };
