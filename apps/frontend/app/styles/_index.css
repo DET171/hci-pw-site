@@ -1,0 +1,7 @@
+/* rainbow text */
+.rainbow {
+	background-image: linear-gradient(90deg, #9c0084, #8a001c, #240185);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
