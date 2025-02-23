@@ -12,6 +12,8 @@ import { allowAll } from '@keystone-6/core/access';
 //   this is a few common fields for an example
 import {
 	checkbox,
+	file,
+	image,
 	password,
 	relationship,
 	select,
@@ -99,6 +101,110 @@ export const lists = {
 
 			createdAt: timestamp({
 				// this sets the timestamp to Date.now() when the user is first created
+				defaultValue: { kind: 'now' },
+			}),
+		},
+	}),
+
+	Year: list({
+		access: {
+			operation: {
+				query: allowAll,
+				create: isAdmin,
+				update: isAdmin,
+				delete: isAdmin,
+			},
+		},
+		description:
+			'A year collection that includes all the projects for that year. Year is a unique field.',
+		ui: {
+			labelField: 'year',
+		},
+		fields: {
+			year: text({
+				validation: { isRequired: true },
+				isIndexed: 'unique',
+			}),
+			projects: relationship({
+				ref: 'Project.year',
+				many: true,
+			}),
+		},
+	}),
+
+	ProjectAuthor: list({
+		access: {
+			operation: {
+				query: allowAll,
+				create: isAdmin,
+				update: isAdmin,
+				delete: isAdmin,
+			},
+		},
+		description:
+			'There is no need to create the authors independently, and project authors is only being stored in a separate table for semantic reasons. You can create them when creating a Project (Project > Authors > Create related Project Author).',
+		fields: {
+			project: relationship({
+				ref: 'Project.authors',
+			}),
+			name: text({ validation: { isRequired: true } }),
+			class: text({ validation: { isRequired: true } }),
+		},
+	}),
+
+	Project: list({
+		access: {
+			operation: {
+				query: allowAll,
+				create: isAdmin,
+				update: isAdmin,
+				delete: isAdmin,
+			},
+		},
+		fields: {
+			title: text({ validation: { isRequired: true } }),
+			year: relationship({
+				ref: 'Year.projects',
+			}),
+			category: select({
+				type: 'enum',
+				options: [
+					{ label: 'Experimental Research (Cat 1)', value: 'cat1' },
+					{ label: 'Humanities and Social Sciences (Cat 2)', value: 'cat2' },
+					{ label: 'Inventions and Engineering (Cat 3)', value: 'cat3' },
+					{ label: 'Resource Development (Cat 4)', value: 'cat4' },
+					{ label: 'Creative Arts (Cat 5)', value: 'cat5' },
+					{ label: 'Chinese Language Arts (Cat 6)', value: 'cat6' },
+					{ label: 'Service Learning (Cat 7)', value: 'cat7' },
+					{ label: 'Mathematics (Cat 8)', value: 'cat8' },
+					{ label: 'Infocomm (Cat 9)', value: 'cat9' },
+					{ label: 'Entrepreneurship (Cat 10)', value: 'cat10' },
+				],
+			}),
+			authors: relationship({
+				ref: 'ProjectAuthor.project',
+				many: true,
+				ui: {
+					displayMode: 'cards',
+					cardFields: ['id', 'name', 'class'],
+					inlineConnect: true,
+					inlineCreate: {
+						fields: ['name', 'class'],
+					},
+				},
+			}),
+			bannerImg: image({
+				storage: 'local_images',
+			}),
+			slides: file({
+				storage: 'local_files',
+			}),
+			description: document({
+				links: true,
+				formatting: true,
+				dividers: true,
+			}),
+			createdAt: timestamp({
 				defaultValue: { kind: 'now' },
 			}),
 		},

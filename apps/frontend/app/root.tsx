@@ -6,7 +6,9 @@ import {
 	Scripts,
 	ScrollRestoration,
 } from '@remix-run/react';
+import Navbar from './components/Navbar';
 
+import './styles/tailwind.css';
 import './styles/global.css';
 
 export const links: LinksFunction = () => [
@@ -18,7 +20,7 @@ export const links: LinksFunction = () => [
 	},
 	{
 		rel: 'stylesheet',
-		href: 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Corinthia:wght@400;700&display=swap',
+		href: 'https://fonts.googleapis.com/css2?family=Corinthia:wght@400;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=WindSong:wght@400;500&display=swap',
 	},
 ];
 
@@ -32,6 +34,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<Links />
 			</head>
 			<body>
+				<Navbar />
 				{children}
 				<ScrollRestoration />
 				<Scripts />
@@ -41,5 +44,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-	return <Outlet />;
+	return (
+			<Outlet />
+	);
 }

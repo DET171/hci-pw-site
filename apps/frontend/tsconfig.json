@@ -14,7 +14,7 @@
 		"esModuleInterop": true,
 		"jsx": "react-jsx",
 		"module": "ESNext",
-		"moduleResolution": "Bundler",
+		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"target": "ES2022",
 		"strict": true,
@@ -26,7 +26,14 @@
 			"~/*": ["./app/*"]
 		},
 
+		"plugins": [
+			{
+				"name": "@0no-co/graphqlsp",
+				"schema": "../cms/schema.graphql"
+			}
+		],
+
 		// Vite takes care of building everything, not tsc.
 		"noEmit": true
-	}
+	},
 }

@@ -19,3 +19,39 @@ model User {
   isAdmin   Boolean   @default(false)
   createdAt DateTime? @default(now())
 }
+
+model Year {
+  id       String    @id @default(cuid())
+  year     String    @unique @default("")
+  projects Project[] @relation("Project_year")
+}
+
+model ProjectAuthor {
+  id        String   @id @default(cuid())
+  project   Project? @relation("ProjectAuthor_project", fields: [projectId], references: [id])
+  projectId String?  @map("project")
+  name      String   @default("")
+  class     String   @default("")
+
+  @@index([projectId])
+}
+
+model Project {
+  id                  String          @id @default(cuid())
+  title               String          @default("")
+  year                Year?           @relation("Project_year", fields: [yearId], references: [id])
+  yearId              String?         @map("year")
+  category            String?
+  authors             ProjectAuthor[] @relation("ProjectAuthor_project")
+  bannerImg_id        String?
+  bannerImg_filesize  Int?
+  bannerImg_width     Int?
+  bannerImg_height    Int?
+  bannerImg_extension String?
+  slides_filesize     Int?
+  slides_filename     String?
+  description         String          @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  createdAt           DateTime?       @default(now())
+
+  @@index([yearId])
+}

@@ -18,7 +18,21 @@ import { session, withAuth } from './auth';
 import bcrypt from 'bcrypt';
 
 import type { DatabaseProvider } from '@keystone-6/core/types';
+import type { StorageConfig } from '@keystone-6/core/types';
 import type { PrismaClient } from '.prisma/client';
+
+const baseUrl = process.env.BASE_URL || 'http://localhost:5001';
+
+const objectStorage = (type: 'file' | 'image') =>
+	({
+		kind: 'local',
+		generateUrl: (path) => `${baseUrl}/uploads${path}`,
+		storagePath: './assets',
+		serverRoute: {
+			path: '/uploads',
+		},
+		type,
+	}) satisfies StorageConfig;
 
 export default withAuth(
 	config({
@@ -51,6 +65,10 @@ export default withAuth(
 		session,
 		server: {
 			port: 5001,
+		},
+		storage: {
+			local_files: objectStorage('file'),
+			local_images: objectStorage('image'),
 		},
 	}),
 );

@@ -12,6 +12,4 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export default function Projects() {
-
-}
+export default function RandomProject() {}
