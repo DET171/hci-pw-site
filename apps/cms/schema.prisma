@@ -41,7 +41,7 @@ model Project {
   title               String          @default("")
   year                Year?           @relation("Project_year", fields: [yearId], references: [id])
   yearId              String?         @map("year")
-  category            String?
+  category            String
   authors             ProjectAuthor[] @relation("ProjectAuthor_project")
   bannerImg_id        String?
   bannerImg_filesize  Int?
@@ -50,6 +50,7 @@ model Project {
   bannerImg_extension String?
   slides_filesize     Int?
   slides_filename     String?
+  summary             String          @default("")
   description         String          @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   createdAt           DateTime?       @default(now())
 

@@ -168,6 +168,7 @@ export const lists = {
 			}),
 			category: select({
 				type: 'enum',
+				validation: { isRequired: true },
 				options: [
 					{ label: 'Experimental Research (Cat 1)', value: 'cat1' },
 					{ label: 'Humanities and Social Sciences (Cat 2)', value: 'cat2' },
@@ -199,10 +200,20 @@ export const lists = {
 			slides: file({
 				storage: 'local_files',
 			}),
+			summary: text({
+				validation: { isRequired: true, length: { min: 75, max: 250 } },
+				ui: {
+					description: 'A short summary of the project, to be displayed on the project card.',
+					displayMode: 'textarea',
+				},
+			}),
 			description: document({
 				links: true,
 				formatting: true,
 				dividers: true,
+				ui: {
+					description: 'A detailed description of the project, displayed on the respective project pages.',
+				},
 			}),
 			createdAt: timestamp({
 				defaultValue: { kind: 'now' },

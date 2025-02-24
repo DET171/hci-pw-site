@@ -244,6 +244,7 @@ type Project {
   authorsCount(where: ProjectAuthorWhereInput! = {}): Int
   bannerImg: ImageFieldOutput
   slides: FileFieldOutput
+  summary: String
   description: Project_description_Document
   createdAt: DateTime
 }
@@ -300,6 +301,7 @@ input ProjectWhereInput {
   year: YearWhereInput
   category: ProjectCategoryTypeNullableFilter
   authors: ProjectAuthorManyRelationFilter
+  summary: StringFilter
   createdAt: DateTimeNullableFilter
 }
 
@@ -320,6 +322,7 @@ input ProjectOrderByInput {
   id: OrderDirection
   title: OrderDirection
   category: OrderDirection
+  summary: OrderDirection
   createdAt: OrderDirection
 }
 
@@ -330,6 +333,7 @@ input ProjectUpdateInput {
   authors: ProjectAuthorRelateToManyForUpdateInput
   bannerImg: ImageFieldInput
   slides: FileFieldInput
+  summary: String
   description: JSON
   createdAt: DateTime
 }
@@ -370,6 +374,7 @@ input ProjectCreateInput {
   authors: ProjectAuthorRelateToManyForCreateInput
   bannerImg: ImageFieldInput
   slides: FileFieldInput
+  summary: String
   description: JSON
   createdAt: DateTime
 }
