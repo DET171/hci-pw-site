@@ -5,10 +5,11 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
-	useLoaderData
+	useRouteLoaderData,
+	useRouteError,
 } from '@remix-run/react';
 import Navbar from './components/Navbar';
-import { client } from './lib/urql';
+import { client, gql } from './lib/urql';
 
 import './styles/tailwind.css';
 import './styles/global.css';
@@ -27,7 +28,7 @@ export const links: LinksFunction = () => [
 ];
 
 export const loader = async () => {
-	const result = await client.query(`
+	const result = await client.query(gql`
 		query Years {
 			years {
 				year
@@ -41,7 +42,8 @@ export const loader = async () => {
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
-	const { years } = useLoaderData<typeof loader>();
+	const data = useRouteLoaderData<typeof loader>('root');
+	if (!data) throw new Error('No data');
 
 	return (
 		<html lang='en'>
@@ -52,7 +54,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<Links />
 			</head>
 			<body>
-				<Navbar years={years} />
+				<Navbar years={data.years} />
 				{children}
 				<ScrollRestoration />
 				<Scripts />
@@ -62,7 +64,25 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-	return (
-			<Outlet />
-	);
+	return <Outlet />;
+}
+
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  console.error(error);
+  return (
+    <html lang='en'>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <h1>Oh no!</h1>
+				<p>Something went wrong.</p>
+        <Scripts />
+      </body>
+    </html>
+  );
 }

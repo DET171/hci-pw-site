@@ -25,7 +25,7 @@ export default function Navbar({
 							<PanelsTopLeft size={24} />
 						</Link>
 					</div>
-					<div className='flex items-center space-x-4'>						
+					<div className='flex items-center space-x-4'>
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
 								<Button variant='ghost' className='text-sm'>
@@ -34,9 +34,7 @@ export default function Navbar({
 							</DropdownMenuTrigger>
 							<DropdownMenuContent className='w-36 bg-popover/50'>
 								<Link to='/'>
-									<DropdownMenuItem>
-										All Projects
-									</DropdownMenuItem>
+									<DropdownMenuItem>All Projects</DropdownMenuItem>
 								</Link>
 								<DropdownMenuSeparator />
 								<DropdownMenuLabel>Years</DropdownMenuLabel>
@@ -55,7 +53,6 @@ export default function Navbar({
 								Projects
 							</Button>
 						</Link>
-
 					</div>
 				</div>
 			</div>

@@ -13,7 +13,9 @@
 			"packages/*/node_modules",
 			".turbo",
 			"apps/.turbo",
-			"apps/cms/.keystone"
+			"apps/cms/.keystone",
+			"apps/cms/schema.graphql",
+			"apps/frontend/app/lib/graphql/*"
 		]
 	},
 	"formatter": {

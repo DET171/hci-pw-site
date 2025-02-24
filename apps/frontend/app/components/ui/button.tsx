@@ -37,27 +37,32 @@ const buttonVariants = cva(
 	},
 );
 
-const Button = forwardRef(({
-	className,
-	variant,
-	size,
-	asChild = false,
-	...props
-}: React.ComponentProps<'button'> &
-	VariantProps<typeof buttonVariants> & {
-		asChild?: boolean;
-	}, forwardedRed) => {
-	const Comp = asChild ? Slot : 'button';
+const Button = forwardRef(
+	(
+		{
+			className,
+			variant,
+			size,
+			asChild = false,
+			...props
+		}: React.ComponentProps<'button'> &
+			VariantProps<typeof buttonVariants> & {
+				asChild?: boolean;
+			},
+		forwardedRed,
+	) => {
+		const Comp = asChild ? Slot : 'button';
 
-	return (
-		<Comp
-			data-slot='button'
-			className={cn(buttonVariants({ variant, size, className }))}
-			{...props}
-			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-			ref={forwardedRed as unknown as any}
-		/>
-	);
-})
+		return (
+			<Comp
+				data-slot='button'
+				className={cn(buttonVariants({ variant, size, className }))}
+				{...props}
+				// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+				ref={forwardedRed as unknown as any}
+			/>
+		);
+	},
+);
 
 export { Button, buttonVariants };
