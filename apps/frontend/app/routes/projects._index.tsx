@@ -100,6 +100,8 @@ export default function Projects() {
 	const { projects, projectsCount, page, take, skip } =
 		useLoaderData<typeof loader>();
 
+	const fetcher = useFetcher();
+
 	return (
 		<>
 			<h1 className='text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl'>
@@ -143,7 +145,7 @@ export default function Projects() {
 								className='text-blue-500 hover:underline flex items-center'
 							>
 								Read more&nbsp;
-								<ExternalLink className='inline-block' size={16} />
+								<ArrowRight size={16} />
 							</Link>
 						</CardFooter>
 					</Card>

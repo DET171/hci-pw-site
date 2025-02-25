@@ -203,7 +203,8 @@ export const lists = {
 			summary: text({
 				validation: { isRequired: true, length: { min: 75, max: 250 } },
 				ui: {
-					description: 'A short summary of the project, to be displayed on the project card.',
+					description:
+						'A short summary of the project, to be displayed on the project card.',
 					displayMode: 'textarea',
 				},
 			}),
@@ -212,7 +213,8 @@ export const lists = {
 				formatting: true,
 				dividers: true,
 				ui: {
-					description: 'A detailed description of the project, displayed on the respective project pages.',
+					description:
+						'A detailed description of the project, displayed on the respective project pages.',
 				},
 			}),
 			createdAt: timestamp({
