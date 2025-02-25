@@ -1,11 +1,8 @@
-import type { MetaFunction } from '@remix-run/react';
 import type { LoaderFunctionArgs } from '@remix-run/node';
-import { useLoaderData, Link } from '@remix-run/react';
-import { client, gql } from '~/lib/urql';
-import { categories } from '~/lib/utils';
+import type { MetaFunction } from '@remix-run/react';
+import { Link, useFetcher, useLoaderData } from '@remix-run/react';
+import { ArrowLeft, ArrowRight, ExternalLink } from 'lucide-react';
 import { Button } from '~/components/ui/button';
-import { ExternalLink, ArrowLeft, ArrowRight } from 'lucide-react';
-
 import {
 	Card,
 	CardContent,
@@ -14,6 +11,8 @@ import {
 	CardHeader,
 	CardTitle,
 } from '~/components/ui/card';
+import { client, gql } from '~/lib/urql';
+import { categories } from '~/lib/utils';
 
 export const meta: MetaFunction = () => {
 	return [
@@ -38,7 +37,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		query ProjectsCount {
 			projectsCount
 		}
-	`, {});
+	`,
+		{},
+	);
 
 	console.log(projectsCount.data);
 
@@ -86,8 +87,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		},
 	);
 
-	console.log(result.data);
-
 	return {
 		projects: result.data.projects as Project[],
 		projectsCount: projectsCount.data.projectsCount as number,
@@ -98,23 +97,22 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export default function Projects() {
-	const { projects, projectsCount, page, take, skip } = useLoaderData<typeof loader>();
-
-	console.log(page, take, skip);
+	const { projects, projectsCount, page, take, skip } =
+		useLoaderData<typeof loader>();
 
 	return (
-		<div className='w-5/6 md:w-4/6 mx-auto pt-28'>
-			<h1 className='text-2xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl'>
+		<>
+			<h1 className='text-2xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl'>
 				Projects
 			</h1>
 			<div className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4 mt-10'>
 				{projects.map((project) => (
 					<Card key={project.id} className='pt-0'>
 						<img
-								src={project.bannerImg.url}
-								alt={project.title}
-								className='w-full h-48 object-cover rounded-t-xl'
-							/>
+							src={project.bannerImg.url}
+							alt={project.title}
+							className='w-full h-48 object-cover rounded-t-xl'
+						/>
 						<CardHeader>
 							<CardTitle>{project.title}</CardTitle>
 						</CardHeader>
@@ -122,16 +120,30 @@ export default function Projects() {
 							<CardDescription>
 								<p>{project.summary}</p>
 								<br />
-								<p>{project.year.year} &middot; {categories.find((cat) => cat.value === project.category)?.label}</p>
+								<p>
+									{project.year.year} &middot;{' '}
+									{
+										categories.find((cat) => cat.value === project.category)
+											?.label
+									}
+								</p>
 								<br />
 								<p>
-									Group Members:<br />{project.authors.map((author) => `${author.name} (${author.class})`).join(', ')}
+									Group Members:
+									<br />
+									{project.authors
+										.map((author) => `${author.name} (${author.class})`)
+										.join(', ')}
 								</p>
 							</CardDescription>
 						</CardContent>
 						<CardFooter className='text-sm'>
-							<Link to={`/projects/${project.id}`} className='text-blue-500 hover:underline flex items-center'>
-								Read more&nbsp;<ExternalLink className='inline-block' size={16} />
+							<Link
+								to={`/projects/${project.id}`}
+								className='text-blue-500 hover:underline flex items-center'
+							>
+								Read more&nbsp;
+								<ExternalLink className='inline-block' size={16} />
 							</Link>
 						</CardFooter>
 					</Card>
@@ -140,28 +152,30 @@ export default function Projects() {
 
 			<div className='mt-10'>
 				{skip > 0 && (
-					<Button
-						asChild
-						variant={'outline'}
-					>
-						<Link to={`/projects?page=${page - 1}`} className={'flex items-center float-left'}>
-							<ArrowLeft className='inline-block' size={16} />&nbsp;Prev
+					<Button asChild variant={'outline'}>
+						<Link
+							to={`/projects?page=${page - 1}`}
+							className={'flex items-center float-left'}
+						>
+							<ArrowLeft className='inline-block' size={16} />
+							&nbsp;Prev
 						</Link>
 					</Button>
 				)}
 
 				{projectsCount > page * take && (
-					<Button
-						asChild
-						variant={'outline'}
-					>
-						<Link to={`/projects?page=${page + 1}`} className={'flex items-center float-right'}>
-							Next&nbsp;<ArrowRight className='inline-block' size={16} />
+					<Button asChild variant={'outline'}>
+						<Link
+							to={`/projects?page=${page + 1}`}
+							className={'flex items-center float-right'}
+						>
+							Next&nbsp;
+							<ArrowRight className='inline-block' size={16} />
 						</Link>
 					</Button>
 				)}
 			</div>
-		</div>
+		</>
 	);
 }
 
@@ -169,7 +183,7 @@ type Project = {
 	id: number;
 	title: string;
 	category: string;
-	authors: { name: string, class: string }[];
+	authors: { name: string; class: string }[];
 	bannerImg: {
 		url: string;
 		height: number;

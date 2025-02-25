@@ -5,10 +5,11 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
-	useRouteLoaderData,
 	useRouteError,
+	useRouteLoaderData,
 } from '@remix-run/react';
 import Navbar from './components/Navbar';
+import { getYears } from './lib/queries';
 import { client, gql } from './lib/urql';
 
 import './styles/tailwind.css';
@@ -28,22 +29,14 @@ export const links: LinksFunction = () => [
 ];
 
 export const loader = async () => {
-	const result = await client.query(gql`
-		query Years {
-			years {
-				year
-			}
-		}
-	`, {});
-
 	return {
-		years: result.data.years,
+		years: await getYears(),
 	};
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
 	const data = useRouteLoaderData<typeof loader>('root');
-	if (!data) throw new Error('No data');
+	if (!data) return null;
 
 	return (
 		<html lang='en'>
@@ -67,22 +60,14 @@ export default function App() {
 	return <Outlet />;
 }
 
-
 export function ErrorBoundary() {
-  const error = useRouteError();
-  console.error(error);
-  return (
-    <html lang='en'>
-      <head>
-        <title>Oh no!</title>
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <h1>Oh no!</h1>
-				<p>Something went wrong.</p>
-        <Scripts />
-      </body>
-    </html>
-  );
+	const error = useRouteError();
+	console.error(error);
+	return (
+		<>
+			<h1>Oh no!</h1>
+			<p>Something went wrong.</p>
+			<Scripts />
+		</>
+	);
 }
