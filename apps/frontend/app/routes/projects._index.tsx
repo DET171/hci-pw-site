@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from '@remix-run/node';
 import type { MetaFunction } from '@remix-run/react';
-import { Link, useLoaderData, useSubmit } from '@remix-run/react';
+import { Link, useLoaderData, useSubmit, useSearchParams } from '@remix-run/react';
 import { ArchiveX, ArrowLeft, ArrowRight, Search, X } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '~/components/ui/button';
@@ -129,11 +129,16 @@ export default function Projects() {
 	const { projects, projectsCount, page, take, skip, years } =
 		useLoaderData<typeof loader>();
 
+	const [searchParams] = useSearchParams();
+	const searchParam = searchParams.get('search') || '';
+	const yearParam = searchParams.get('year') || 'all';
+	const categoryParam = searchParams.get('category') || 'all';
+
 	// console.log(projects);
 
-	const [search, setSearch] = useState('');
-	const [year, setYear] = useState<string>('all');
-	const [category, setCategory] = useState<string>('all');
+	const [search, setSearch] = useState(searchParam);
+	const [year, setYear] = useState<string>(yearParam);
+	const [category, setCategory] = useState<string>(categoryParam);
 
 	const submit = useSubmit();
 

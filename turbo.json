@@ -4,7 +4,7 @@
 	"daemon": false,
 	"tasks": {
 		"build": {
-			"dependsOn": ["^build"],
+			"dependsOn": ["//#format-lint", "^build"],
 			"inputs": ["$TURBO_DEFAULT$", ".env*"],
 			"outputs": [".keystone/", "build/"]
 		},

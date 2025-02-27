@@ -1,13 +1,12 @@
 import { Client, cacheExchange, fetchExchange } from '@urql/core';
 import { requestPolicyExchange } from '@urql/exchange-request-policy';
-import config from '../../config.json' with { type: 'json' };
 
 const isDev = import.meta.env.DEV;
 
-if (!config.graphqlUrl) throw new Error('Missing graphqlUrl in config.json');
+if (!process.env.GRAPHQL_API_URL) throw new Error('Missing graphqlUrl in env');
 
 export const client = new Client({
-	url: config.graphqlUrl,
+	url: process.env.GRAPHQL_API_URL,
 	exchanges: [
 		requestPolicyExchange({
 			ttl: isDev ? 1 : 1000 * 60 * 5, // 5 minutes
