@@ -26,7 +26,7 @@ export default function Navbar({
 						</Link>
 					</div>
 					<div className='flex items-center space-x-4'>
-						<DropdownMenu>
+						{/* <DropdownMenu>
 							<DropdownMenuTrigger asChild>
 								<Button variant='ghost' className='text-sm'>
 									Years
@@ -47,7 +47,7 @@ export default function Navbar({
 									</Link>
 								))}
 							</DropdownMenuContent>
-						</DropdownMenu>
+						</DropdownMenu> */}
 						<Link to={'/projects'}>
 							<Button variant='ghost' className='text-sm'>
 								Projects

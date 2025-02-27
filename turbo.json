@@ -8,6 +8,11 @@
 			"inputs": ["$TURBO_DEFAULT$", ".env*"],
 			"outputs": [".keystone/**", "!.keystone/admin/.next/cache/**"]
 		},
+		"frontend#build": {
+			"dependsOn": ["gql#build"],
+			"inputs": ["$TURBO_DEFAULT$"],
+			"outputs": ["dist/**"]
+		},
 		"check-types": {
 			"dependsOn": ["^check-types"],
 			"inputs": ["$TURBO_DEFAULT$"],
