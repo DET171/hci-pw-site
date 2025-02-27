@@ -28,7 +28,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '~/components/ui/select';
-import { client, gql } from '~/lib/urql';
+import { client, gql } from '~/lib/urql.server';
 import { categories } from '~/lib/utils';
 
 export const meta: MetaFunction = () => {

@@ -1,4 +1,4 @@
-import { client, gql } from './urql';
+import { client, gql } from './urql.server';
 
 export const getYears = async () => {
 	const result = await client.query(

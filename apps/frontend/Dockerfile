@@ -12,8 +12,8 @@ RUN apk update
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY --from=builder /app/out/json .
-RUN yarn install --immutable
+RUN yarn install
 COPY --from=builder /app/out/full/ .
 RUN yarn build
 WORKDIR /app/apps/frontend/
-CMD yarn start
+CMD ["yarn", "start"]

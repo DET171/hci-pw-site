@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { Client, cacheExchange, fetchExchange } from '@urql/core';
 import { requestPolicyExchange } from '@urql/exchange-request-policy';
 

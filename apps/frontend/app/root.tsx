@@ -9,8 +9,6 @@ import {
 	useRouteLoaderData,
 } from '@remix-run/react';
 import Navbar from './components/Navbar';
-import { getYears } from './lib/queries';
-import { client, gql } from './lib/urql';
 
 import './styles/tailwind.css';
 import './styles/global.css';
@@ -28,16 +26,8 @@ export const links: LinksFunction = () => [
 	},
 ];
 
-export const loader = async () => {
-	return {
-		years: await getYears(),
-	};
-};
 
 export function Layout({ children }: { children: React.ReactNode }) {
-	const data = useRouteLoaderData<typeof loader>('root');
-	if (!data) return null;
-
 	return (
 		<html lang='en'>
 			<head>
@@ -47,7 +37,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<Links />
 			</head>
 			<body>
-				<Navbar years={data.years} />
+				<Navbar />
 				{children}
 				<ScrollRestoration />
 				<Scripts />

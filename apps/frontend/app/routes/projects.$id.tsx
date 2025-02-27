@@ -4,7 +4,7 @@ import type { MetaFunction } from '@remix-run/react';
 import { Link, useLoaderData } from '@remix-run/react';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { Button } from '~/components/ui/button';
-import { client, gql } from '~/lib/urql';
+import { client, gql } from '~/lib/urql.server';
 import { categories } from '~/lib/utils';
 
 export const meta: MetaFunction = () => {

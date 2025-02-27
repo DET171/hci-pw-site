@@ -11,14 +11,15 @@ FROM base AS runner
 RUN apk update
 RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
-COPY --from=builder /app/out/json .
+RUN addgroup --system app -g 1001
+RUN adduser --system -u 1001 app
+RUN chown -R app:app /app
+USER app
+COPY --from=builder --chown=app:app /app/out/json .
 RUN yarn install
-COPY --from=builder /app/out/full/ .
+COPY --from=builder --chown=app:app /app/out/full/ .
 RUN yarn build
 WORKDIR /app/apps/cms/
 RUN yarn keystone prisma migrate deploy
 EXPOSE 5001
-ENV DEFAULT_ADMIN_USER=admin
-ENV DEFAULT_ADMIN_PASSWORD=admin
-ENV DEFAULT_ADMIN_EMAIL=admin@hci.edu.sg
 CMD ["yarn", "start"]
