@@ -19,7 +19,8 @@ COPY --from=builder --chown=app:app /app/out/json .
 RUN yarn install
 COPY --from=builder --chown=app:app /app/out/full/ .
 RUN yarn build
-WORKDIR /app/apps/cms/
-RUN yarn keystone prisma migrate deploy
-# EXPOSE 5001
+RUN yarn workspace cms keystone prisma migrate deploy
+EXPOSE 5001
+EXPOSE 3000
+ENV GRAPHQL_API_URL=http://localhost:5001/api/graphql
 CMD ["yarn", "start"]
