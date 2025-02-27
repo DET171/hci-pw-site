@@ -1,6 +1,11 @@
 import type { LoaderFunctionArgs } from '@remix-run/node';
 import type { MetaFunction } from '@remix-run/react';
-import { Link, useLoaderData, useSubmit, useSearchParams } from '@remix-run/react';
+import {
+	Link,
+	useLoaderData,
+	useSearchParams,
+	useSubmit,
+} from '@remix-run/react';
 import { ArchiveX, ArrowLeft, ArrowRight, Search, X } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '~/components/ui/button';
