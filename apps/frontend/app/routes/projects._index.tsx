@@ -64,6 +64,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		{},
 	);
 
+	console.log(projectsMetadata);
+
 	const { years, projectsCount } = projectsMetadata;
 
 	const page = pageParam ? Number.parseInt(pageParam) : 1;
@@ -237,7 +239,7 @@ export default function Projects() {
 							</CardHeader>
 							<CardContent>
 								<CardDescription>
-									<p>{project.summary}</p>
+									<p className='text-wrap break-words'>{project.summary}</p>
 									<br />
 									<p>
 										{project.year.year} &middot;{' '}

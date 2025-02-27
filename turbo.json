@@ -9,7 +9,8 @@
 			"outputs": [".keystone/", "build/"]
 		},
 		"start": {
-			"dependsOn": ["^start"]
+			"dependsOn": ["^start"],
+			"passThroughEnv": ["GRAPHQL_API_URL"]
 		},
 		"check-types": {
 			"dependsOn": ["^check-types"],

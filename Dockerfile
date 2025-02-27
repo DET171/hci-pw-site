@@ -5,7 +5,7 @@ RUN apk update
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY . .
-RUN yarn dlx turbo prune cms --docker
+RUN yarn dlx turbo prune frontend cms --docker
 
 FROM base AS runner
 RUN apk update
@@ -21,5 +21,5 @@ COPY --from=builder --chown=app:app /app/out/full/ .
 RUN yarn build
 WORKDIR /app/apps/cms/
 RUN yarn keystone prisma migrate deploy
-EXPOSE 5001
+# EXPOSE 5001
 CMD ["yarn", "start"]
