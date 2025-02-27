@@ -5,7 +5,8 @@
 		"build": "turbo run build",
 		"dev": "turbo run dev",
 		"format-lint": "biome check .",
-		"format-lint:fix": "biome check . --write"
+		"format-lint:fix": "biome check . --write",
+		"start": "turbo run start"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
@@ -17,9 +18,6 @@
 	"engines": {
 		"node": ">=18"
 	},
-	"workspaces": [
-		"apps/*",
-		"packages/*"
-	],
+	"workspaces": ["apps/*", "packages/*"],
 	"packageManager": "yarn@4.6.0"
 }

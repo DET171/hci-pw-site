@@ -6,7 +6,10 @@
 		"build": {
 			"dependsOn": ["^build"],
 			"inputs": ["$TURBO_DEFAULT$", ".env*"],
-			"outputs": [".keystone/**", "build/**"]
+			"outputs": [".keystone/", "build/"]
+		},
+		"start": {
+			"dependsOn": ["^start"]
 		},
 		"check-types": {
 			"dependsOn": ["^check-types"],

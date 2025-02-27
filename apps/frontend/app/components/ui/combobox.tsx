@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import { Check, ChevronsUpDown } from 'lucide-react';
+import { useState } from 'react';
 
-import { cn } from '~/lib/utils';
 import { Button } from '~/components/ui/button';
 import {
 	Command,
@@ -18,6 +17,7 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from '~/components/ui/popover';
+import { cn } from '~/lib/utils';
 
 export function Combobox({
 	options,
@@ -50,7 +50,7 @@ export function Combobox({
 					className={cn('w-full justify-between')}
 				>
 					<span className='truncate'>
-						{(value && options.find((option) => option.value === value))
+						{value && options.find((option) => option.value === value)
 							? options.find((option) => option.value === value)?.label
 							: 'Select framework...'}
 					</span>
