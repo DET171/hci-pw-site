@@ -37,6 +37,8 @@ const objectStorage = (type: 'file' | 'image') =>
 console.log('Using database provider:', process.env.DB_PROVIDER || 'sqlite');
 console.log('Using database URL:', process.env.DB_URL || 'file:./keystone.db');
 
+console.log(process.env);
+
 export default withAuth(
 	config({
 		db: {
