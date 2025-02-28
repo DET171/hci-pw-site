@@ -1,0 +1,36 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+      - "5001:5001"
+    volumes:
+      - ./.container/cms/assets:/app/apps/cms/assets
+    networks:
+      - main-network
+    depends_on:
+      - postgres
+    environment:
+      - GRAPHQL_API_URL=http://localhost:5001/api/graphql
+      - DB_URL=postgres://postgres:postgres@postgres:5432/postgres
+      - DB_PROVIDER=postgresql
+      - DEFAULT_ADMIN_PW=admin
+      - DEFAULT_ADMIN_USER=admin
+      - DEFAULT_ADMIN_EMAIL=admin@test.com
+      # you can generate one with `openssl rand -hex 32`, minimum 32 characters
+      - SESSION_SECRET=somesecret
+
+  postgres:
+    image: postgres:13
+    volumes:
+      - ./.container/postgres/data:/var/lib/postgresql/data
+    networks:
+      - main-network
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+networks:
+  main-network:
+    driver: bridge

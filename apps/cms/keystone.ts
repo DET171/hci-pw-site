@@ -34,6 +34,9 @@ const objectStorage = (type: 'file' | 'image') =>
 		type,
 	}) satisfies StorageConfig;
 
+console.log('Using database provider:', process.env.DB_PROVIDER || 'sqlite');
+console.log('Using database URL:', process.env.DB_URL || 'file:./keystone.db');
+
 export default withAuth(
 	config({
 		db: {
@@ -47,6 +50,7 @@ export default withAuth(
 				const db = context.prisma as PrismaClient;
 				const admin = await db.user.findFirst({ where: { isAdmin: true } });
 				if (!admin) {
+					console.log('Configuring default admin user');
 					await db.user.create({
 						data: {
 							name: process.env.DEFAULT_ADMIN_USER || 'admin',

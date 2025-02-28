@@ -20,6 +20,7 @@ RUN yarn install
 COPY --from=builder --chown=app:app /app/out/full/ .
 RUN yarn build
 RUN yarn workspace cms keystone prisma migrate deploy
+VOLUME apps/cms/assets
 EXPOSE 5001
 EXPOSE 3000
 ENV GRAPHQL_API_URL=http://localhost:5001/api/graphql

@@ -64,8 +64,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		{},
 	);
 
-	console.log(projectsMetadata);
-
 	const { years, projectsCount } = projectsMetadata;
 
 	const page = pageParam ? Number.parseInt(pageParam) : 1;

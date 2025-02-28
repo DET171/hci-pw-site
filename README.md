@@ -30,14 +30,10 @@ The repository is structured as follows:
 
 ## Deployment
 
-This application can (as a whole) be deployed with Docker, though how desirable this is is debatable. The Docker image can be built using the following command:
+This application can (as a whole) be deployed with Docker, though how desirable this is is debatable. Open up `docker-compose.yaml` and configure the `volumes`, `environment`, and `ports` as desired. Then run:
 
-```sh
-docker build . -t hci-pw-site
+```
+docker-compose up
 ```
 
-The image can then be run with the following command:
-
-```sh
-docker run -p 3000:3000 -p 5001:5001 -e DEFAULT_ADMIN_USER=admin -e DEFAULT_ADMIN_EMAIL=admin@hci.edu.sg -e DEFAULT_ADMIN_PW=admin -e GRAPHQL_API_URL=http://localhost:5001/api/graphql -it --rm hci-pw-site
-```
+This will build and run the application in a container, together with a PostgreSQL database. The application will be accessible at the ports configured in the `docker-compose.yaml` file.

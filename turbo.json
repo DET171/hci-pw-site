@@ -10,7 +10,8 @@
 		},
 		"start": {
 			"dependsOn": ["^start"],
-			"passThroughEnv": ["GRAPHQL_API_URL"]
+			"passThroughEnv": ["GRAPHQL_API_URL", "DEFAULT_ADMIN_USER", "DEFAULT_ADMIN_EMAIL", "DEFAULT_ADMIN_PW"],
+			"cache": false
 		},
 		"check-types": {
 			"dependsOn": ["^check-types"],

@@ -71,11 +71,9 @@ export default function Project() {
 	const { project } = data;
 	const category = categories.find((c) => c.value === project.category)?.label;
 
-	console.log(project);
-
 	return (
 		<>
-			<div className='flex flex-col gap-6 w-full'>
+			<div className='flex flex-col gap-4 w-full pb-10'>
 				<div>
 					<Button asChild variant={'link'}>
 						<Link to='/projects' className='flex items-center gap-2 pl-0!'>
@@ -85,19 +83,19 @@ export default function Project() {
 					</Button>
 				</div>
 				<h1 className='text-4xl font-bold'>{project.title}</h1>
-				<div className='text-lg'>
+				<div className='text-md'>
 					{category && <span>{category}&nbsp;&middot;&nbsp;</span>}
 					{project.year.year}
 				</div>
-				<div className='flex gap-2'>
-					{project.authors.map((author) => (
-						<div key={author.name}>
-							{author.name} ({author.class})
-						</div>
+				<div className='flex gap-2 -mt-2 text-md text-gray-300'>
+					{project.authors.map((author, index) => (
+						<span key={author.name}>
+							{author.name} ({author.class}){index < project.authorsCount - 1 && ','}
+						</span>
 					))}
 				</div>
 				{/* <div className='text-lg'>{project.summary}</div> */}
-				<div className='prose prose-invert w-full max-w-none'>
+				<div className='prose prose-invert w-full max-w-none my-3'>
 					<DocumentRenderer document={project.description.document} />
 				</div>
 				<div>
