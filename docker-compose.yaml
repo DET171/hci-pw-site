@@ -30,8 +30,6 @@ services:
       - ./.container/postgres/data:/var/lib/postgresql/data
     networks:
       - main-network
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_DB: keystone
       POSTGRES_USER: postgres
