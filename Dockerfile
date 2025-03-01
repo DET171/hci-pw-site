@@ -18,9 +18,11 @@ USER app
 COPY --from=builder --chown=app:app /app/out/json .
 RUN yarn install
 COPY --from=builder --chown=app:app /app/out/full/ .
+# it doesn't actually need this when building its just there to stop it from throwing an error
+ENV DB_URL=postgres://postgres:postgres@localhost:5432/postgres
 RUN yarn build
-RUN yarn workspace cms keystone prisma migrate deploy
-VOLUME apps/cms/assets
+# RUN yarn workspace cms keystone prisma migrate dev
+VOLUME /app/apps/cms/assets
 EXPOSE 5001
 EXPOSE 3000
 ENV GRAPHQL_API_URL=http://localhost:5001/api/graphql

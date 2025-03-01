@@ -34,19 +34,16 @@ const objectStorage = (type: 'file' | 'image') =>
 		type,
 	}) satisfies StorageConfig;
 
-console.log('Using database provider:', process.env.DB_PROVIDER || 'sqlite');
-console.log('Using database URL:', process.env.DB_URL || 'file:./keystone.db');
-
-console.log(process.env);
+if (!process.env.DB_URL) {
+	console.error('No PostgreSQL DB_URL provided');
+	process.exit(1);
+}
 
 export default withAuth(
 	config({
 		db: {
-			// we're using sqlite for the fastest startup experience
-			//   for more information on what database might be appropriate for you
-			//   see https://keystonejs.com/docs/guides/choosing-a-database#title
-			provider: (process.env.DB_PROVIDER as DatabaseProvider) || 'sqlite',
-			url: process.env.DB_URL || 'file:./keystone.db',
+			provider: 'postgresql',
+			url: process.env.DB_URL,
 			onConnect: async (context) => {
 				// create initial admin user if it doesn't exist
 				const db = context.prisma as PrismaClient;

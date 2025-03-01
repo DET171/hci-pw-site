@@ -1,6 +1,10 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DB_URL=postgres://postgres:postgres@localhost:5432/postgres
     ports:
       - "3000:3000"
       - "5001:5001"
@@ -9,11 +13,11 @@ services:
     networks:
       - main-network
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
       - GRAPHQL_API_URL=http://localhost:5001/api/graphql
-      - DB_URL=postgres://postgres:postgres@postgres:5432/postgres
-      - DB_PROVIDER=postgresql
+      - DB_URL=postgres://postgres:postgres@postgres:5432/keystone
       - DEFAULT_ADMIN_PW=admin
       - DEFAULT_ADMIN_USER=admin
       - DEFAULT_ADMIN_EMAIL=admin@test.com
@@ -26,10 +30,17 @@ services:
       - ./.container/postgres/data:/var/lib/postgresql/data
     networks:
       - main-network
+    ports:
+      - "5432:5432"
     environment:
-      POSTGRES_DB: postgres
+      POSTGRES_DB: keystone
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   main-network:
