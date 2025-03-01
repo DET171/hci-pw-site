@@ -109,7 +109,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			take,
 			skip,
 			filter: {
-				...(searchParam ? { title: { contains: searchParam } } : {}),
+				...(searchParam
+					? { title: { contains: searchParam, mode: 'insensitive' } }
+					: {}),
 				...(yearParam && yearParam !== 'all'
 					? { year: { year: { equals: yearParam } } }
 					: {}),

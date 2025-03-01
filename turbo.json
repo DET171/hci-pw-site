@@ -6,12 +6,23 @@
 		"build": {
 			"dependsOn": ["^build"],
 			"passThroughEnv": ["DB_URL"],
-			"inputs": ["$TURBO_DEFAULT$", ".env*", "!schema.prisma", "!schema.graphql"],
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				".env*",
+				"!schema.prisma",
+				"!schema.graphql"
+			],
 			"outputs": ["build/", ".keystone/"]
 		},
 		"start": {
 			"dependsOn": ["^start"],
-			"passThroughEnv": ["GRAPHQL_API_URL", "DEFAULT_ADMIN_USER", "DEFAULT_ADMIN_EMAIL", "DEFAULT_ADMIN_PW", "DB_URL"],
+			"passThroughEnv": [
+				"GRAPHQL_API_URL",
+				"DEFAULT_ADMIN_USER",
+				"DEFAULT_ADMIN_EMAIL",
+				"DEFAULT_ADMIN_PW",
+				"DB_URL"
+			],
 			"cache": false
 		},
 		"check-types": {
@@ -25,7 +36,14 @@
 		},
 		"dev": {
 			"cache": false,
-			"passThroughEnv": ["GRAPHQL_API_URL", "DEFAULT_ADMIN_USER", "DEFAULT_ADMIN_EMAIL", "DEFAULT_ADMIN_PW", "DB_URL", "DB_PROVIDER"],
+			"passThroughEnv": [
+				"GRAPHQL_API_URL",
+				"DEFAULT_ADMIN_USER",
+				"DEFAULT_ADMIN_EMAIL",
+				"DEFAULT_ADMIN_PW",
+				"DB_URL",
+				"DB_PROVIDER"
+			],
 			"persistent": true
 		}
 	}

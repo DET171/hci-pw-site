@@ -90,7 +90,8 @@ export default function Project() {
 				<div className='flex gap-2 -mt-2 text-md text-gray-300'>
 					{project.authors.map((author, index) => (
 						<span key={author.name}>
-							{author.name} ({author.class}){index < project.authorsCount - 1 && ','}
+							{author.name} ({author.class})
+							{index < project.authorsCount - 1 && ','}
 						</span>
 					))}
 				</div>
