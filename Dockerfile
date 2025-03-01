@@ -18,7 +18,8 @@ WORKDIR /app
 COPY --from=builder --chown=app:app /app/out/json .
 RUN yarn install
 COPY --from=builder --chown=app:app /app/out/full/ .
-# it doesn't actually need this when building its just there to stop it from throwing an error
+# it doesn't actually need the DB_URL when building as migrations are only applied when the image is started
+# its just there to stop it from throwing an error
 ENV DB_URL=postgres://postgres:postgres@localhost:5432/postgres
 RUN yarn build
 # RUN yarn workspace cms keystone prisma migrate dev
