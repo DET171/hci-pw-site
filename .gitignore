@@ -43,4 +43,5 @@ yarn-error.log*
 *.pem
 
 .container/
-docker-compose.env.yaml
+compose.env.yaml
+compose.dev.yaml
